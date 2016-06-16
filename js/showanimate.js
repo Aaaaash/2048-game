@@ -20,3 +20,7 @@ function showMoveAnimation(formx,formy,tox,toy){
         left:getPosLeft(tox,toy)
     },200);
 }
+// 分数
+function uodateScore(score){
+    $('#score').text(score);
+}
