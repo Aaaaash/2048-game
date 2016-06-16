@@ -1,7 +1,10 @@
 var board=new Array();
 var score=0;            //存储游戏数据的数组
 var hasConflicted=new Array();
-
+var startx=0;
+var starty=0;
+var endx=0;
+var endy=0;
 $(function(){
     prepareForMobile();
     newgame();
@@ -118,6 +121,7 @@ $(document).keydown(function(event){
     switch (event.keyCode){
         case 37:
             // left
+            event.preventDefault();
             if(moveLeft()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
@@ -125,6 +129,7 @@ $(document).keydown(function(event){
             break;
         case 38:
             // up
+            event.preventDefault();
             if(moveUp()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
@@ -132,6 +137,7 @@ $(document).keydown(function(event){
             break;
         case 39:
             // right
+            event.preventDefault();
             if(moveRight()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
@@ -139,6 +145,7 @@ $(document).keydown(function(event){
             break;
         case 40:
             // down
+            event.preventDefault();
             if(moveDown()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",400);
@@ -148,12 +155,60 @@ $(document).keydown(function(event){
             break;
     }
 });
+document.addEventListener('touchstart',function(event){
+    // 滑动起始点
+    startx=event.touches[0].pageX;
+    starty=event.touches[0].pageY;
+});
+document.addEventListener('touchmove',function(event){
+    event.preventDefault();
+});
+document.addEventListener('touchend',function(event){
+    // 滑动结束点
+    endx=event.changedTouches[0].pageX;
+    endy=event.changedTouches[0].pageY;
+    var deltax=endx-startx;
+    var deltay=endy-starty;
+    if(Math.abs(deltax)<0.3*documentWidth&&Math.abs(deltay)<0.3*documentWidth){
+        return false;
+    }
+    if(Math.abs(deltax)>=Math.abs(deltay)){
+        // X
+        if(deltax>0){
+            // 右
+            if(moveRight()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }else{
+            // 左
+            if(moveLeft()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+    }else{
+        // Y
+        if(deltay>0){
+            // 下
+            if(moveDown()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",400);
+            }
+        }else{
+            // 上
+            if(moveUp()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+    }
+});
 function isgameover(){
     // 游戏结束
     if(noscpace(board)&&nomove(board)){
         gameover();
     }
-
 };
 function gameover(){
     alert('你已经无路可走了！')
