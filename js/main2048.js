@@ -169,7 +169,7 @@ document.addEventListener('touchend',function(event){
     endy=event.changedTouches[0].pageY;
     var deltax=endx-startx;
     var deltay=endy-starty;
-    if(Math.abs(deltax)<0.3*documentWidth&&Math.abs(deltay)<0.3*documentWidth){
+    if(Math.abs(deltax)<0.2*documentWidth&&Math.abs(deltay)<0.2*documentWidth){
         return false;
     }
     if(Math.abs(deltax)>=Math.abs(deltay)){
