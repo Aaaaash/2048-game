@@ -10,3 +10,13 @@ function showNumberWidthAnimate(i,j,randNumber){
         left:getPosLeft(i,j)
     },200);
 }
+
+// 移动
+function showMoveAnimation(formx,formy,tox,toy){
+    var numberCell=$('#number-cell'+'-'+formx+'-'+formy);
+    numberCell.attr('id')
+    numberCell.animate({
+        top:getPosTop(tox,toy),
+        left:getPosLeft(tox,toy)
+    },200);
+}
