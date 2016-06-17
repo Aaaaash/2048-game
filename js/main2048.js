@@ -25,6 +25,7 @@ function prepareForMobile(){
     $('.grid-cell').css('border-radius',0.02*cellSideLength);
 }
 function newgame(){
+    $('#gameover').fadeOut("normal");
     // 初始化游戏棋盘格
     init();
     // 随机两个格子中生成数字
@@ -211,7 +212,7 @@ function isgameover(){
     }
 };
 function gameover(){
-    alert('你已经无路可走了！')
+    $('#gameover').fadeIn("normal");
 }
 function moveLeft(){
     // 判断是否可以左移
